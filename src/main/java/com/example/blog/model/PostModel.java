@@ -34,12 +34,13 @@ public class PostModel {
     @OneToMany
     @JoinColumn
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<Likes> likes;
+    private List<Person> postLikes;
 
-    @OneToMany
-    @JoinColumn
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<Comments> comments;
+    public PostModel(String postText) {
+        this.postText = postText;
+    }
 
-
+    public PostModel(Long postId) {
+        this.postId = postId;
+    }
 }
