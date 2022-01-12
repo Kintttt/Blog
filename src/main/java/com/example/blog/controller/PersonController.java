@@ -2,6 +2,7 @@ package com.example.blog.controller;
 
 
 import com.example.blog.model.Person;
+import com.example.blog.repository.PersonRepository;
 import com.example.blog.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,28 +18,30 @@ import javax.servlet.http.HttpSession;
 public class PersonController {
 
     private final PersonService personService;
+    private final PersonRepository personRepo;
 
     @Autowired
-    public PersonController(PersonService personService) {
+    public PersonController(PersonService personService, PersonRepository personRepo) {
         this.personService = personService;
+        this.personRepo = personRepo;
     }
 
     //Creating new Users
     @PostMapping("/signUp")
     public String signUp(@RequestBody Person person){
-        if(personService.savePersons(person) == null){
-            System.out.println(person);
-            return "Email is already taken, please try another";
+        Person user = personService.savePersons(person);
+
+        if(user == null){
+            return "Email taken, please try another";
         }
-        personService.savePersons(person);
         System.out.println(person);
-        return "User created with details of: " + person.toString();
+        return "User created with details: "+ person.toString();
     }
 
     @PostMapping("/login")
     public String loginUser(HttpServletRequest request, @RequestBody Person person){
         if(!personService.login(person)){
-            return "Unable to log user in. Please confirm email and password";
+            return "Unable to log user in. Please confirm email and password" + person.getUserId();
         }
         request.getSession();
         return "Login successful.. WELCOME, "+ person.getFirstName();

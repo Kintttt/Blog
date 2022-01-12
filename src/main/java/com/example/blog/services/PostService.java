@@ -40,28 +40,18 @@ public class PostService {
         return postList;
     }
 
-    public String likePosts(Long userId, Long post){
+    public String likePosts(Long userId, Long postId){
 
         var user = personRepo.findById(userId).get();
-        PostModel postId = postRepo.findById(post).get();
+        PostModel post = postRepo.findById(postId).get();
 
-        if(postId.getPostLikes() == null){
-//            List<Person> persons = postId.getPostLikes();
-//            persons.add(user);
-//            postId.setPostLikes(persons);
-            postId.getPostLikes().add(user);
-            postRepo.save(postId);
-        }
+//        if(!post.getPostLikes().contains(user)){
+//            return "Post was already liked by you. Number of likes is: "+ post.getPostLikes().size();
+//        }
 
-        if(postId.getPostLikes().contains(user)){
-            System.out.println(postId.getPostLikes());
-            return "Post was already liked by you. Number of likes is: "+ postId.getPostLikes().size();
-        }
-        System.out.println(postId.getPostLikes().size());
-        postId.getPostLikes().add(user);
-        System.out.println(postId.getPostLikes());
-        return "You have now liked this post. Number of likes is now: "+ postId.getPostLikes().size();
-
+        post.getPostLikes().add(user);
+        postRepo.save(post);
+        return "Post liked now. Number of likes is: "+ post.getPostLikes().size();
 
     }
 

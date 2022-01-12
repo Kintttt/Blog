@@ -21,7 +21,7 @@ public class PostController {
         if(postText.getPostText().length() == 0){
             return "Please write a post!";
         }
-        System.out.println(postText.getPerson());
+
         postService.createPost(posterId, postText.getPostText());
         return postText.getPostText();
     }
@@ -33,7 +33,7 @@ public class PostController {
 
     @PostMapping("/likePost/{userId}/{postId}")
     public String likePost(@PathVariable Long postId, @PathVariable Long userId){
-        postService.likePosts(userId, postId);
+        //postService.likePosts(userId, postId);
 
         return postService.likePosts(userId, postId);
     }

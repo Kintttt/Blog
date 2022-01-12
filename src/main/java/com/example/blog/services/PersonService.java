@@ -20,12 +20,14 @@ public class PersonService {
 
     public Person savePersons(Person person){
 
-        if(person.getEmail() != null){
+        Person person1 = personRepo.findPersonByEmail(person.getEmail());
+
+        if(person1 != null){
             return null;
         }
-       personRepo.save(person);
-       return person;
+       return personRepo.save(person);
     }
+
 
     public boolean login(Person person){
 
