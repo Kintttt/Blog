@@ -79,13 +79,5 @@ public class PersonService {
         return user.getFriends();
     }
 
-//    public List<String> testtt(Long userId){
-//        Person user = personRepo.findById(userId).get();
-//
-//        ArrayList<String> friendsPosts = new ArrayList<>();
-//
-//        for(friend : user.getFriends()){
-//            friendsPosts.add(friend.)
-//        }
-//    }
+
 }

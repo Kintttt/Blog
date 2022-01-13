@@ -31,4 +31,18 @@ public class CommentsController {
 
         return comment + " added for, POST: " + postRepo.findById(postId).get().getPostText();
     }
+
+    @PostMapping("/likeComment/{userId}/{commentId}")
+    public String likeComments(@PathVariable Long commentId, @PathVariable Long userId){
+        return commentsService.likeComments(userId, commentId);
+    }
+
+
+    @PostMapping("/unLikeComment/{userId}/{commentId}")
+    public String unLikeComments(@PathVariable Long commentId, @PathVariable Long userId){
+        return commentsService.unLikeComment(userId, commentId);
+    }
+
+
+
 }

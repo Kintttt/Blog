@@ -2,6 +2,7 @@ package com.example.blog.services;
 
 
 import com.example.blog.model.CommentsModel;
+import com.example.blog.model.Person;
 import com.example.blog.model.PostModel;
 import com.example.blog.repository.CommentsRepository;
 import com.example.blog.repository.PersonRepository;
@@ -35,5 +36,31 @@ public class CommentsService {
         commentsRepo.save(comment);
 
         return text;
+    }
+
+
+    public String likeComments(Long userId, Long commentId){
+        Person user = personRepo.findById(userId).get();
+        CommentsModel comment = commentsRepo.findById(commentId).get();
+
+        comment.getCommentLikes().add(user);
+        commentsRepo.save(comment);
+
+        return "You have now liked this comment. Number of likes is: " + comment.getCommentLikes().size();
+    }
+
+
+    public String unLikeComment(Long userId, Long commentId){
+
+        var user = personRepo.findById(userId).get();
+        CommentsModel comment = commentsRepo.findById(commentId).get();
+
+        if(comment.getCommentLikes().contains(user)){
+            comment.getCommentLikes().remove(user);
+
+            return "Comment unliked. Number of likes is now: " + comment.getCommentLikes().size();
+        }
+
+        return "You never liked this comment.";
     }
 }

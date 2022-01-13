@@ -38,5 +38,18 @@ public class PostController {
         return postService.likePosts(userId, postId);
     }
 
+    @PostMapping("/unLikePost/{userId}/{postId}")
+    public String unLikePost(@PathVariable Long postId, @PathVariable Long userId){
+        return postService.unLikePosts(userId, postId);
+    }
 
+    @GetMapping("userPosts/{userId}")
+    public List<PostModel> getAllPostByUserId(@PathVariable Long userId){
+        return postService.getAllPostByUserId(userId);
+    }
+
+    @GetMapping("friendsPosts/{userId}")
+    public List<PostModel> showAllFriendsPosts(@PathVariable Long userId){
+        return postService.getFriendsPosts(userId);
+    }
 }
